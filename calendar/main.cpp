@@ -27,23 +27,22 @@ void fillDistanceMonths(int arr[],int daysMonth[]){
 }
 
 int main(){
-    int year,int month;
+    string monthsNames[]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","setiembre","Octubre","Noviembre","Diciembre"};
+    int year, month;
     cin>>year;
-    cin>>mont;
+    cin>>month;
     int daysInMonth[]={31,28,31,30,31,30,31,31,30,31,30,31};
     int distances[12];//to save distance in nobisiest year
+
     if (!(year%4)){//si es bisiesto
         if(year%100) daysInMonth[1]++;//no divisible entre 100 si lo es
         else if(!(year%400)) daysInMonth[1]++;
     }
 
     fillDistanceMonths(distances,daysInMonth);
-    cout<<endl<<"Febrero 2012"<<endl;
-    printDays(distances[1],daysInMonth[1]);
+    cout<<endl<<monthsNames[--month]<<" del "<<year<<endl;
+    printDays(distances[month],daysInMonth[month]);
     cout<<endl;
 
-    printDays(5,31);
-    printDays(3,30);
-    cout << "Hello world!" << endl;
     return 0;
 }
