@@ -1,12 +1,7 @@
 #include <iostream>
+#include <string>
 #include <iomanip>
 using namespace std;
-
-template <typename T>
-void printArray(T arr[],int sizes){
-    for (int i=0;i<sizes;i++)
-        cout<< arr[i]<<" ";
-}
 
 void printDays(int startDay=0,int diasMes=31){
     cout<<"  D  L  M  X  J  V  S"<<endl;
@@ -19,30 +14,27 @@ void printDays(int startDay=0,int diasMes=31){
     cout<<endl;
 }
 
-void fillDistanceMonths(int arr[],int daysMonth[]){
-    arr[0]=0;
-    for (int i=0;i<11;i++)
-        arr[i+1]=(arr[i]+daysMonth[i])%7;
-    printArray(arr,12);
+int iniciomes(int year,int mes){
+    if(mes<=2){mes=mes+12;year=year-1;}
+    int dia=(1+(13*(mes+1)/5)+year+(year/4)-(year/100)+(year/400))%7;
+    return dia;
 }
-
-int main(){
-    string monthsNames[]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","setiembre","Octubre","Noviembre","Diciembre"};
-    int year, month;
-    cin>>year;
-    cin>>month;
+int main()
+{
+    int year,mes,dia;
     int daysInMonth[]={31,28,31,30,31,30,31,31,30,31,30,31};
-    int distances[12];//to save distance in nobisiest year
-
+    cout << "Ingrese el anio: " << endl;
+    cin>>year;
+    cout << "Ingrese el mes: " << endl;
+    cin>>mes;
+    dia=iniciomes(year,mes)-1;
+    if(dia<0)dia=6;//En caso de que empiece el mes el dia sabado
+    //cout<<dia<<endl;
     if (!(year%4)){//si es bisiesto
         if(year%100) daysInMonth[1]++;//no divisible entre 100 si lo es
         else if(!(year%400)) daysInMonth[1]++;
-    }
 
-    fillDistanceMonths(distances,daysInMonth);
-    cout<<endl<<monthsNames[--month]<<" del "<<year<<endl;
-    printDays(distances[month],daysInMonth[month]);
-    cout<<endl;
-
+}
+printDays(dia,daysInMonth[mes-1]);
     return 0;
 }
