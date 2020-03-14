@@ -8,10 +8,8 @@ void imprimirNumeroLetras(long long numero);
 int main()
 {
     long long numero;
-
     cout<<"Ingrese numero: ";
     cin>>numero;
-    cout<<"El numero se lee: ";
     imprimirNumeroLetras(numero);
     return 0;
 }
@@ -55,6 +53,7 @@ void imprimir3Cifras(int x){
 }
 
 void imprimirNumeroLetras(long long numero){
+    cout<<"El numero "<<numero<<" se lee: ";
     if (numero==0){
         cout<<"cero";
         return;
