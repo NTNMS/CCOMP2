@@ -73,4 +73,5 @@ void imprimirNumeroLetras(long long numero){
         if(aux) cout<<denominaciones[i];
         if(i==3&&aux%10==1&&aux%100!=11) cout<<"o";
     }
+    cout<<endl;
 }
