@@ -2,15 +2,10 @@
 #include <string>
 using namespace std;
 
-int cifras(int x,int number=0){
-    while(x/=10) number++;
-    return number+1;
-}
-
 //la idea es separar de tres en tres
 void imprimir3Cifras(int x){
-    string cero_nine[]={"cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve"};
-    int a=x/10;
+    string cero_nine[]={"cero","un","dos","tres","cuatro","cinco","seis","siete","ocho","nueve"};
+    int a=x/100;
     if(a){
         if (a==5) cout<<"quinientos ";
         else if(a==7) cout<<"setecientos ";
@@ -28,7 +23,10 @@ void imprimir3Cifras(int x){
     if(a){
         string decenas[]={"","diez","veinte","treinta ","cuarenta ","cincuenta ","sesenta ","setenta ","ochenta ","noventa "};
         if (a==2){
-            if (x%10) cout<<"veinti"<<cero_nine[a]<<" ";
+            if (x%10){
+                cout<<"veinti"<<cero_nine[x%10];
+                return;
+            }
             else{
                 cout<<"veinte ";
                 return;
@@ -36,19 +34,18 @@ void imprimir3Cifras(int x){
         }
         else if(a==1){
             string ten_fiveteen[]={ "diez","once","doce","trece","catorce","quince"};
-            if ((a%10)<6) cout<<ten_fiveteen[a%10];
-            else cout<<"dieci"<<cero_nine[a%10];
+            if ((a%10)<6) cout<<ten_fiveteen[x%10];
+            else cout<<"dieci"<<cero_nine[x%10];
             return;
         }
-        else
+        else{
             cout<<decenas[a];
+            if (x%10) cout<<"y ";
+        }
     }
     a=x%10;
-    if (a) cout<<" y "<<cero_nine[a];
+    if (a) cout<<cero_nine[a];
 }
-
-
-void do_something(){cout<<"algol"<<endl;}
 
 int main()
 {
@@ -56,27 +53,24 @@ int main()
     long long base=1000000000;
     cout<<"Ingrese numero: ";
     cin>>numero;
-    /*int digitos=cifras(numero);
-    cout<<"Numero: "<<numero<<"cifras:"<<digitos<<endl;
-    for (int i=0;i<digitos;i++,base*=10);*/
-    string denominaciones[]={" mil "," millones "," mil "," "};
+
+    string denominaciones[]={" mil "," millones "," mil ",""};
     if (numero==0){
         cout<<"cero";
         return 0;
     }
-    cout<<numero/base<<endl;
     int aux=0;
-    for (int i=0;i<4;i++,base/=100){
+    for (int i=0;i<4;i++,base/=1000){
         aux=numero/base;
         numero-=(aux*base);
-        if(aux!=1){
-            imprimir3Cifras(aux);
-        }
+        if(aux!=1) imprimir3Cifras(aux);
         else if(i==1){
             cout<<"un millon";
             continue;
         }
+        else if(i==3) cout<<"un";
         if(aux) cout<<denominaciones[i];
+        if(i==3&&aux%10==1) cout<<"o";
     }
 
     return 0;
